@@ -1,14 +1,15 @@
-service: blaz-express-application
-
+# the serverless service name
+service: blaz-express-application-batch2
+# provider that will manage the deployment and execution of the serverless
 provider:
-  name: aws
-  runtime: nodejs14.x
-  stage: dev
-  region: us-east-2
-
+  name: aws # the aws, this wil manage the execution 
+  runtime: nodejs14.x # using Nodejs14.x (latest available in AWS Lambda) for execution of the code
+  stage: dev  # the dev env, other value is 'prod' 
+  region: us-east-2 # the region where the the lambda is executing
+# function metadata definitions
 functions:
-  app:
-    handler: index.handler
-    events:
-      - http: ANY /
-      - http: 'ANY /{proxy+}'  
+  app:  # the app info
+    handler: index.handler  # the handler to handle HTTP Requests, exported from index.js (filename).handler
+    events: # events used to activate the the serverless
+      - http: ANY /   # any HTTP method
+      - http: 'ANY /{proxy+}'  # the HTTP method with URL parameters 

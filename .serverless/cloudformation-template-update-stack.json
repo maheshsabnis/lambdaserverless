@@ -74,7 +74,7 @@
     "AppLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/blaz-express-application-dev-app"
+        "LogGroupName": "/aws/lambda/blaz-express-application-batch2-dev-app"
       }
     },
     "IamRoleLambdaExecution": {
@@ -102,7 +102,7 @@
               "Fn::Join": [
                 "-",
                 [
-                  "blaz-express-application",
+                  "blaz-express-application-batch2",
                   "dev",
                   "lambda"
                 ]
@@ -119,7 +119,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/blaz-express-application-dev*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/blaz-express-application-batch2-dev*:*"
                     }
                   ]
                 },
@@ -130,7 +130,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/blaz-express-application-dev*:*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/blaz-express-application-batch2-dev*:*:*"
                     }
                   ]
                 }
@@ -143,7 +143,7 @@
           "Fn::Join": [
             "-",
             [
-              "blaz-express-application",
+              "blaz-express-application-batch2",
               "dev",
               {
                 "Ref": "AWS::Region"
@@ -161,11 +161,11 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/blaz-express-application/dev/1634233900061-2021-10-14T17:51:40.061Z/blaz-express-application.zip"
+          "S3Key": "serverless/blaz-express-application-batch2/dev/1634638125014-2021-10-19T10:08:45.014Z/blaz-express-application-batch2.zip"
         },
         "Handler": "index.handler",
         "Runtime": "nodejs14.x",
-        "FunctionName": "blaz-express-application-dev-app",
+        "FunctionName": "blaz-express-application-batch2-dev-app",
         "MemorySize": 1024,
         "Timeout": 6,
         "Role": {
@@ -179,20 +179,20 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersion99aM0gQIcvTML2eo1MpAYiYabpWZyFMef1H0QnmT4E8": {
+    "AppLambdaVersion6nS3CV4FLdewwisGwxtZ0P14fbJjjGvAmHfueeBnYis": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "be3hiQ/K3FKNVGgJ4h8EeDACIrTckt1WMQ8IMk4Iswo="
+        "CodeSha256": "uOGzyfoSh4juPGlw+wA6Burp7iTJBKAZwZtkETVYnts="
       }
     },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
-        "Name": "dev-blaz-express-application",
+        "Name": "dev-blaz-express-application-batch2",
         "EndpointConfiguration": {
           "Types": [
             "EDGE"
@@ -260,7 +260,10 @@
           }
         },
         "MethodResponses": []
-      }
+      },
+      "DependsOn": [
+        "AppLambdaPermissionApiGateway"
+      ]
     },
     "ApiGatewayMethodProxyVarAny": {
       "Type": "AWS::ApiGateway::Method",
@@ -303,9 +306,12 @@
           }
         },
         "MethodResponses": []
-      }
+      },
+      "DependsOn": [
+        "AppLambdaPermissionApiGateway"
+      ]
     },
-    "ApiGatewayDeployment1634233895784": {
+    "ApiGatewayDeployment1634638098861": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -362,16 +368,16 @@
         "Ref": "ServerlessDeploymentBucket"
       },
       "Export": {
-        "Name": "sls-blaz-express-application-dev-ServerlessDeploymentBucketName"
+        "Name": "sls-blaz-express-application-batch2-dev-ServerlessDeploymentBucketName"
       }
     },
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersion99aM0gQIcvTML2eo1MpAYiYabpWZyFMef1H0QnmT4E8"
+        "Ref": "AppLambdaVersion6nS3CV4FLdewwisGwxtZ0P14fbJjjGvAmHfueeBnYis"
       },
       "Export": {
-        "Name": "sls-blaz-express-application-dev-AppLambdaFunctionQualifiedArn"
+        "Name": "sls-blaz-express-application-batch2-dev-AppLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {
@@ -397,7 +403,7 @@
         ]
       },
       "Export": {
-        "Name": "sls-blaz-express-application-dev-ServiceEndpoint"
+        "Name": "sls-blaz-express-application-batch2-dev-ServiceEndpoint"
       }
     }
   }

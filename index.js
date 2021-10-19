@@ -89,4 +89,9 @@ instance.listen(port,()=>{
 // export the express object so that aws-serverless-express will use it to create the server
 //module.exports = instance;
 
+// the serverless object is going to register the 'instance' the express object
+// with all its HTTP methods for triggering the execution
+// When the HTTP GET/POST/PUT/DFELETE requests are received the 
+// Lamdba function aka serverless will  be executed
+// and it will perform Read/Writions with DynamoDB 
 module.exports.handler = serverless(instance);
